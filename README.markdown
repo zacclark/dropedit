@@ -16,6 +16,6 @@ Keep only production-ready code in `master`. The main codebase used should be `d
     $ git push origin :feature/auth           # remove remote branch
     $ git push origin develop                 # keep the github repo up to date
     
-To start out, you will need to clone the repo
+Remember, to start out, you will need to clone the repo.
 
-  $ git clone <repo url>
+    $ git clone <repo url>
