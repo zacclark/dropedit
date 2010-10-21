@@ -15,3 +15,5 @@ Keep only production-ready code in `master`. The main codebase used should be `d
     $ git branch -d feature/auth              # remove local branch
     $ git push origin :feature/auth           # remove remote branch
     $ git push origin develop                 # keep the github repo up to date
+
+Testing git - hello world!
