@@ -18,4 +18,4 @@ Keep only production-ready code in `master`. The main codebase used should be `d
     
 To start out, you will need to clone the repo
 
-  $ git clone <repo url>
+Testing git - hello world!
