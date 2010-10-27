@@ -1,2 +1,6 @@
 *~
 .DS_Store
+dropedit.iml
+dropedit.ipr
+dropedit.iws
+target/**/*
