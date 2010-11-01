@@ -5,13 +5,22 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-    <servlet>
-        <servlet-name>first</servlet-name>
-        <servlet-class>FirstServlet</servlet-class>
+	<servlet>
+        <servlet-name>dispatch</servlet-name>
+        <servlet-class>DispatchServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>first</servlet-name>
+        <servlet-name>dispatch</servlet-name>
         <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+	<servlet>
+        <servlet-name>auth</servlet-name>
+        <servlet-class>AuthServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>auth</servlet-name>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
 
