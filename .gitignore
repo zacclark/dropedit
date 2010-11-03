@@ -4,3 +4,4 @@ dropedit.iml
 dropedit.ipr
 dropedit.iws
 target/**/*
+config/keys.json
