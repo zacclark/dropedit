@@ -23,6 +23,15 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
+		<servlet>
+        <servlet-name>list</servlet-name>
+        <servlet-class>ListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>list</servlet-name>
+        <url-pattern>/list</url-pattern>
+    </servlet-mapping>
+
 
 
 </web-app>

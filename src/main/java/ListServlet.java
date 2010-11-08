@@ -6,17 +6,22 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
-public class DispatchServlet extends HttpServlet {
-    public static final String VIEW = "/WEB-INF/jsp/dispatcher.jsp";
+public class ListServlet extends HttpServlet {
+    public static final String VIEW = "/WEB-INF/jsp/list.jsp";
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
-		if (session == null) {									// do proper check
-			resp.sendRedirect("login");
+		if (session == null) {
+			resp.sendRedirect("/");
 		}else{
-			resp.sendRedirect("list"); 				// change this
+			session.setAttribute("hht", "hht");
+		
+			req.setAttribute("user", session.getAttribute("uname"));
+			String files[] = {"coolness.txt", "another_file.txt", "notes.txt", "pic.jpeg"};
+			req.setAttribute("files", files);
+			req.getRequestDispatcher(VIEW).forward(req, resp);
 		}
     }
 }
