@@ -1,3 +1,7 @@
+import com.dropbox.client.Authenticator;
+import com.dropbox.client.DropboxClient;
+import com.dropbox.client.DropboxException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +21,19 @@ public class ListServlet extends HttpServlet {
 			resp.sendRedirect("/");
 		}else{
 			session.setAttribute("hht", "hht");
-		
+
+			DropboxClient dropbox = (DropboxClient)session.getAttribute("client");
+
 			req.setAttribute("user", session.getAttribute("uname"));
-			String files[] = {"coolness.txt", "another_file.txt", "notes.txt", "pic.jpeg"};
+			String info = null;
+			try {
+				info = dropbox.accountInfo(false,"").toString();
+			} catch (DropboxException e) {
+				info = "oh shit it failed!";
+			}
+
+			String files[] = {"coolness.txt", "another_file.txt", "notes.txt", "pic.jpeg", info};
+			
 			req.setAttribute("files", files);
 			req.getRequestDispatcher(VIEW).forward(req, resp);
 		}

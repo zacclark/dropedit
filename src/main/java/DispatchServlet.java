@@ -13,7 +13,7 @@ public class DispatchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
-		if (session == null) {									// do proper check
+		if (session == null) {
 			resp.sendRedirect("login");
 		}else{
 			resp.sendRedirect("list"); 				// change this

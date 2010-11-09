@@ -19,37 +19,6 @@ public class AuthServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Map config = null;
-		try {
-			config = Authenticator.loadConfig("config/keys.json");
-		} catch (ParseException e) {
-			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-		}
-		Authenticator auth = null;
-		try {
-			auth = new Authenticator(config);
-		} catch (OAuthException e) {
-			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-		}
-		try {
-			String url = auth.retrieveRequestToken("http://mysite.com/theyaredone?blah=blah");
-		} catch (OAuthException e) {
-			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-		}
-		try {
-			auth.retrieveAccessToken("");
-		} catch (OAuthMessageSignerException e) {
-			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-		} catch (OAuthNotAuthorizedException e) {
-			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-		} catch (OAuthExpectationFailedException e) {
-			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-		} catch (OAuthCommunicationException e) {
-			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-		}
-		String access_key = auth.getTokenKey();
-		String access_secret = auth.getTokenSecret();
-		DropboxClient client = new DropboxClient(config, auth);
 		
 		req.getRequestDispatcher(VIEW).forward(req, resp);
     }
@@ -58,19 +27,29 @@ public class AuthServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
-		
-		
-		
-		if (password == "test") {
-			HttpSession session = req.getSession(true);
-			session.setAttribute("uname", password);
-			session.setAttribute("pass", password);
-			resp.sendRedirect("/");
-		}else{
-			// HttpSession session = req.getSession(true);
-			// session.setAttribute("uname", password);
-			// session.setAttribute("pass", password);
-			resp.sendRedirect("/");
+
+		Map config = null;
+		Authenticator auth = null;
+		try {
+			config = Authenticator.loadConfig("config/keys.json");
+			auth = new Authenticator(config);
+//			String url = auth.retrieveRequestToken(null);
+//			resp.getWriter().write(url);
+//
+//			auth.retrieveAccessToken("");
+
+//			String access_key = auth.getTokenKey();
+//			String access_secret = auth.getTokenSecret();
+
+		} catch (Exception e) {
+			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
 		}
+
+		DropboxClient dropbox = new DropboxClient(config, auth);
+
+		HttpSession session = req.getSession(true);
+		session.setAttribute("client", dropbox);
+		resp.sendRedirect("/");
+
     }
 }

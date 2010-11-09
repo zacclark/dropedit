@@ -5,4 +5,3 @@ dropedit.ipr
 dropedit.iws
 target/**/*
 privatekeys.txt
-config/keys.json

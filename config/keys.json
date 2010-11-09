@@ -1,0 +1,16 @@
+{
+"server": "api.getdropbox.com",
+"content_server": "api-content.getdropbox.com",
+"port": 80,
+"request_token_url": "http://api.getdropbox.com/0/oauth/request_token",
+"access_token_url": "http://api.getdropbox.com/0/oauth/access_token",
+"authorization_url": "http://api.getdropbox.com/0/oauth/authorize",
+"consumer_key": "o465rspvbfypvu6",
+"consumer_secret": "sz4tivupikyxwxt",
+"access_token_key": "h5df7efcwpe99w7",
+"access_token_secret": "ub9zaxrwyyho0bx"
+"verifier": "",
+"testing_user": "",
+"testing_password": ""
+}
+
