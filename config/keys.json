@@ -5,10 +5,10 @@
 "request_token_url": "http://api.getdropbox.com/0/oauth/request_token",
 "access_token_url": "http://api.getdropbox.com/0/oauth/access_token",
 "authorization_url": "http://api.getdropbox.com/0/oauth/authorize",
-"consumer_key": "o465rspvbfypvu6",
-"consumer_secret": "sz4tivupikyxwxt",
-"access_token_key": "h5df7efcwpe99w7",
-"access_token_secret": "ub9zaxrwyyho0bx"
+"consumer_key": "zpwhlv3wsny913h",
+"consumer_secret": "livppzb8egvgm1o",
+"access_token_key": "9qoacelqmtycheo",
+"access_token_secret": "d52l63ouhhzs5q6"
 "verifier": "",
 "testing_user": "",
 "testing_password": ""
