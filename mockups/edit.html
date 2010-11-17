@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+  	<title>DropEdit : Edit</title>
+	<script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		$(document).ready(function(){
+			$('#fullscreen').toggle(function(){
+				$('#mainedit').addClass('full');
+			},function(){
+				$('#mainedit').removeClass('full');
+			});
+		});
+	</script>
+		<style type="text/css" media="screen">
+			*																{padding: 0; margin: 0;}
+		                    					  			
+			html														{height: 100%;}
+			body 														{background: #eee; height: 100%;}
+			#container											{width: 840px; margin: 20px auto; background: #fff; padding: 20px; -webkit-box-shadow: rgba(0,0,0,0.2) 2px 2px 2px;}
+			h1 															{font-family: "Helvetica"; font-size: 60px;}
+			h2 															{font-family: "Helvetica"; font-size: 20px; font-weight: normal; margin-top: 20px;}
+			form#auth												{float: left; margin-top: 20px; padding: 5px 20px;}
+			form#auth input 								{font-size: 20px; margin-top: 4px;}
+			form#auth input[type=submit] 		{border: 1px solid #ccc; background: #fff; padding: 1px 10px;}
+		
+			#signin													{float: left; width: 100%;}
+			#signin h2											{width: 250px; float: left; border-right: 1px solid #ccc; margin-right: 5px;}
+			p																{font-family: "Arial"; margin: 2em 0 0 0; float: left; font-size: 13px; color: #777;}
+			p a															{color: #333;}
+			
+			#file_list											{list-style: none; float: left; width: 50%; overflow: hidden; clear: left; margin-top: 20px;}
+			#file_list li										{float: left; width: 100%; font-family: "Arial"; font-size: 13px; padding: 5px; background: #efefef; margin-bottom: 3px; -webkit-box-shadow: rgba(0,0,0,0.2) 1px 1px 1px;}
+			#file_list li strong						{display: block; float: left;}
+			#file_list li a.direct					{display: block; float: left; font-weight: bold;}
+			#file_list .buttonset						{float: right; margin-right: 10px; text-transform: lowercase;}
+			#file_list .buttonset a					{text-decoration: none; color: #888; border-bottom: 1px solid #999;}
+		                    					
+			.clear													{clear: both;}
+			
+			#edit_file											{width: 100%; float: left; margin-top: 10px;}
+			#edit_file #mainedit						{width: 630px; float: left; height: 300px; position: relative;}
+			#edit_file #mainedit.full				{position: fixed; width: auto; top: 0; left: 0; right: 0; bottom: 0; background: #fff; height: 100%;}
+			#edit_file textarea 						{position: absolute; top: 0; left: 0; right: 0; bottom: 0; padding: 5px;}
+			#mainedit .controls 						{position: absolute; bottom: 0px; right: 5px;}
+			#mainedit .controls a						{color: #ccc; font-size: 40px; text-decoration: none;}
+			ul.meta 												{list-style: none; width: 190px; float: left; font-family: Arial; border-top: 1px solid #ccc; font-size: 13px; margin-left: 10px;}
+			ul.meta li											{border-bottom: 1px solid #ccc; float: left; width: 100%; padding: 2px 0;}
+			ul.meta li strong								{text-transform: lowercase; float: left;}
+			ul.meta li span									{float: right;}
+		</style>
+	</head>
+	<body>  
+		<div id="container">
+			
+			<h1>DropEdit</h1>
+			
+			<h2>Editing File: Dropbox/MyFolder/notes.txt</h2>
+			
+			<form action="" id="edit_file">
+				<div id="mainedit">
+					<textarea name="contents">
+Lecture Notes (2010-11-03)
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					</textarea>
+					<div class="controls">
+						<a href="#" id="fullscreen">F</a>
+					</div>
+				</div>
+				<ul class="meta">
+					<li><strong>Name</strong> <span>notes.txt</span></li>
+					<li><strong>Created</strong> <span>2010-11-03</span></li>
+					<li><strong>Modified</strong> <span>2010-11-22</span></li>
+				</ul>
+			</form>
+			
+			<div class="clear"></div>
+			
+		</div>
+	</body>
+</html>
