@@ -11,7 +11,9 @@
 			
 			<c:forEach var="file" items="${files}">
 				<li class="file">
-					<strong><c:out value="${file}"/></strong>
+					<strong><c:out value="${file.name}"/></strong>
+					<br />
+                    <strong><c:out value="${file.modifiedDate}"/></strong>
 					<div class="buttonset">
 					<a href="#">Edit</a>
 					<a href="#">Delete</a>
