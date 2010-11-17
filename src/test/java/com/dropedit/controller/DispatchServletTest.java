@@ -40,4 +40,16 @@ public class DispatchServletTest {
 		
 		verify(resp).sendRedirect("login");
 	}
+	
+	public void someSessionShouldRedirectToList() throws Exception {
+		HttpServletRequest req = mock(HttpServletRequest.class);
+		HttpServletResponse resp = mock(HttpServletResponse.class);
+		HttpSession sesh = mock(HttpSession.class); // mock the session
+		
+		when(req.getSession(false)).thenReturn(sesh); // use mock session
+		
+		new DispatchServlet().doGet(req, resp);
+		
+		verify(resp).sendRedirect("list");
+	}
 }
