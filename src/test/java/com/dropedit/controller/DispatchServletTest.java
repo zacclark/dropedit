@@ -14,22 +14,6 @@ import com.dropedit.controller.DispatchServlet;
 @Test
 public class DispatchServletTest {
 	
-	// public void trueShouldBeTrue() {
-	// 	HttpServletRequest request = mock(HttpServletRequest.class);
-	// 	HttpServletResponse response = mock(HttpServletResponse.class);
-	// 	
-	// 	when(dispatcherServlet.doGet(with(request, response))).willReturn("foo");
-	// 	
-	// 	
-	// 	
-	// 	HttpServlet dispatchServlet = new DispatchServlet();
-	// 	dispatchServlet.doGet(request, response);
-	// 	
-	// 	
-	// 	
-	// 	assertTrue(true);
-	// }
-	
 	public void noSessionShouldRedirectToLogin() throws Exception {
 		HttpServletRequest req = mock(HttpServletRequest.class);
 		HttpServletResponse resp = mock(HttpServletResponse.class);

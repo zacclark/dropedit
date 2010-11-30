@@ -20,12 +20,11 @@ public class AuthServlet extends HttpServlet {
 
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		req.getRequestDispatcher(VIEW).forward(req, resp);
+		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+			req.getRequestDispatcher(VIEW).forward(req, resp);
     }
 
-	@Override
+		@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
