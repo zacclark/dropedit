@@ -8,14 +8,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.RequestDispatcher;
 import java.io.IOException;
 import com.dropedit.controller.AuthServlet;
 
 @Test
 public class AuthServletTest {
 	
-	public void basicTest() throws Exception {
-		assertTrue(true);
+	public void getShouldReturnView() throws Exception {
+		HttpServletRequest req = mock(HttpServletRequest.class);
+		HttpServletResponse resp = mock(HttpServletResponse.class);
+		
+		RequestDispatcher dispatcher = mock(RequestDispatcher.class);
+		when(req.getRequestDispatcher("/WEB-INF/jsp/login.jsp")).thenReturn(dispatcher);
+		
+		new AuthServlet().doGet(req, resp);
+		
+		verify(dispatcher).forward(req, resp);
 	}
 	
 }
