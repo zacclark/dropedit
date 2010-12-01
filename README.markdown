@@ -74,10 +74,10 @@ You have now successfully added a feature to the application.
 
 At the end of the iteration, we will want to update `master` with stable code. `develop` should have collected all the different features, and be in a working state.
 
-  $ git checkout master
-  $ git merge --no-ff develop -m "Iteration <#>"
-  $ git push origin master
-  $ git checkout develop
+    $ git checkout master
+    $ git merge --no-ff develop -m "Iteration <#>"
+    $ git push origin master
+    $ git checkout develop
   
 ### Extra Help
     
