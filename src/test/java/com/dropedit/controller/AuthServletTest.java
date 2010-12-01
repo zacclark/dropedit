@@ -27,4 +27,15 @@ public class AuthServletTest {
 		verify(dispatcher).forward(req, resp);
 	}
 	
+	// public void postShouldAttachDropboxToSession() throws Exception {
+	// 	HttpServletRequest req = mock(HttpServletRequest.class);
+	// 	HttpServletResponse resp = mock(HttpServletResponse.class);
+	// 	HttpSession sesh = mock(HttpSession.class); // mock the session
+	// 	
+	// 	new AuthServlet().doPost(req, resp);
+	// 	
+	// 	//verify(resp).sendRedirect("/");
+	// 	assertTrue(true);
+	// }
+	
 }
