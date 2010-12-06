@@ -23,20 +23,24 @@ public class ListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String root = RootPath.getRootPath();
-        String pathName = req.getParameter("value");
-        RootPath.addRootPath(pathName);
-        if (pathName == null){
-            System.out.print(pathName);
-            pathName = "";
-        }
-        System.out.println(pathName);
 
         HttpSession session = req.getSession(false);
 		if (session == null) {
 			resp.sendRedirect("/");
 		}else{
-			session.setAttribute("hht", "hht");
+
+            String currentPathName = req.getParameter("value");
+            if (currentPathName == null){
+                //System.out.println(currentPathName);
+                currentPathName = "";
+            }
+            System.out.println("currentPathName: " + currentPathName);
+
+            RootPath rootPath;
+            rootPath = (RootPath)session.getAttribute("parentPath");
+
+            System.out.println("rootPath: " + rootPath.getRootPath());
+
 
 			DropboxClient dropbox = (DropboxClient)session.getAttribute("client");
 
@@ -46,7 +50,7 @@ public class ListServlet extends HttpServlet {
             JSONObject testMap = new JSONObject();
 			try {
 				info = dropbox.accountInfo(false,"").toString();
-                testMap = (JSONObject)dropbox.metadata("dropbox", pathName, 10000, "", true, false, "");
+                testMap = (JSONObject)dropbox.metadata("dropbox", currentPathName, 10000, "", true, false, "");
 			} catch (DropboxException e) {
 				info = "oh shit it failed!";
 			}
@@ -64,8 +68,6 @@ public class ListServlet extends HttpServlet {
                 }
             } );
 
-            //String Source = (String) testMap.get("path");
-            req.setAttribute("folder", root);
 
             for(Object o : (JSONArray) testMap.get("contents")) {
                 JSONObject jsObject = (JSONObject) o;
@@ -74,7 +76,7 @@ public class ListServlet extends HttpServlet {
                         System.out.println("key: " + entry.getKey() + " value: " + entry.getValue());
                     } */
                 FileDescriptor fileDescriptor = new FileDescriptor();
-                fileDescriptor.setName(StringUtils.difference(pathName, (String) jsObject.get("path")));
+                fileDescriptor.setName(StringUtils.difference(currentPathName, (String) jsObject.get("path")));
                 fileDescriptor.setPath((String) jsObject.get("path"));
                 fileDescriptor.setModifiedDate((String) jsObject.get("modified"));
                 //fileDescriptor.setIsDirectory(jsObject.get("is_dir"));
@@ -82,8 +84,14 @@ public class ListServlet extends HttpServlet {
                 fileDescriptors.add(fileDescriptor);
             }
 
+            req.setAttribute("parentPath", rootPath.getRootPath());
+            System.out.println("ParentPath: " + rootPath.getRootPath());
             req.setAttribute("files", fileDescriptors);
+            rootPath.addRootPath(currentPathName);
+
 			req.getRequestDispatcher(VIEW).forward(req, resp);
+            session.setAttribute("parentPath", rootPath);
+
 		}
     }
 
