@@ -7,7 +7,7 @@
 		<h2>File Listing: Dropbox/MyFolder</h2>
 		
 		<ul id="file_list">
-			<li class="folder"><a href="list?value=" class="direct">Up One Level</a></li>
+			<li class="folder"><a href="list?value=${parentPath}" class="direct">"${parentPath}" Up One Level</a></li>
 			
 			<c:forEach var="file" items="${files}">
 				<li class="file">

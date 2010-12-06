@@ -50,6 +50,11 @@ public class AuthServlet extends HttpServlet {
 
 		HttpSession session = req.getSession(true);
 		session.setAttribute("client", dropbox);
+
+        RootPath rootPath = new RootPath();
+        rootPath.addRootPath("");
+        session.setAttribute("parentPath", rootPath);
+
 		resp.sendRedirect("/");
 
     }
