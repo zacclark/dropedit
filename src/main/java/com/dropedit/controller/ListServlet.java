@@ -30,7 +30,7 @@ public class ListServlet extends HttpServlet {
             System.out.print(pathName);
             pathName = "";
         }
-        System.out.println(pathName);
+        //System.out.println(pathName);
 
         HttpSession session = req.getSession(false);
 		if (session == null) {
@@ -46,7 +46,7 @@ public class ListServlet extends HttpServlet {
             JSONObject testMap = new JSONObject();
 			try {
 				info = dropbox.accountInfo(false,"").toString();
-                testMap = (JSONObject)dropbox.metadata("dropbox", pathName, 10000, "", true, false, "");
+        testMap = (JSONObject)dropbox.metadata("dropbox", pathName, 10000, "", true, false, "");
 			} catch (DropboxException e) {
 				info = "oh shit it failed!";
 			}
