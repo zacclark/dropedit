@@ -18,13 +18,20 @@ public class DispatchServlet extends HttpServlet {
 			if (session == null) {
 				resp.sendRedirect("login");
 			}else{
-				//resp.sendRedirect("list"); 				// change this
-                RootPath rootpath;
+                String path = req.getParameter("value");
+                    if (path == null){
+                    //System.out.println(currentPathName);
+                    path = "";
+                    }
+                System.out.println("Path: " + path);
+				resp.sendRedirect("list" + path); 				// change this
+                /*RootPath rootpath;
                 session = req.getSession(false);
                 rootpath = (RootPath)session.getAttribute("parentPath");
                 System.out.println("AuthServlet" + rootpath.getRootPath());
                 rootpath.popRootPath();
                 resp.sendRedirect("list?value=" + rootpath.getRootPath());
+                */
 
 			}
     }

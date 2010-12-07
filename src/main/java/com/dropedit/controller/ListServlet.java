@@ -31,7 +31,6 @@ public class ListServlet extends HttpServlet {
 
             String currentPathName = req.getParameter("value");
             if (currentPathName == null){
-                //System.out.println(currentPathName);
                 currentPathName = "";
             }
             System.out.println("currentPathName: " + currentPathName);
@@ -85,7 +84,6 @@ public class ListServlet extends HttpServlet {
             }
 
             req.setAttribute("parentPath", rootPath.getRootPath());
-            System.out.println("ParentPath: " + rootPath.getRootPath());
             req.setAttribute("files", fileDescriptors);
             rootPath.addRootPath(currentPathName);
 
