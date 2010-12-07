@@ -20,7 +20,7 @@ public class AuthServlet extends HttpServlet {
 
 
     @Override
-		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			req.getRequestDispatcher(VIEW).forward(req, resp);
     }
 
@@ -48,7 +48,7 @@ public class AuthServlet extends HttpServlet {
 
 		DropboxClient dropbox = new DropboxClient(config, auth);
 
-		HttpSession session = req.getSession(true);
+		HttpSession session = req.getSession();
 		session.setAttribute("client", dropbox);
 
         RootPath rootPath = new RootPath();

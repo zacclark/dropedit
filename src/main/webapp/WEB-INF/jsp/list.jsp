@@ -16,13 +16,13 @@
                     </a><br />
                     <strong><c:out value="${file.modifiedDate}"/></strong>
 					<div class="buttonset">
-					<a href="#">Edit</a>
+					<a href="edit">Edit</a>
 					<a href="#">Delete</a>
 				</div>
 				</li>
 			</c:forEach>
 			
-		</ul>
+		</ul
 
     </jsp:attribute>
 </layout:default>

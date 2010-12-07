@@ -23,13 +23,22 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
-		<servlet>
+    <servlet>
         <servlet-name>list</servlet-name>
         <servlet-class>com.dropedit.controller.ListServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>list</servlet-name>
         <url-pattern>/list</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>edit</servlet-name>
+        <servlet-class>com.dropedit.controller.EditFileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>edit</servlet-name>
+        <url-pattern>/edit</url-pattern>
     </servlet-mapping>
 
 
