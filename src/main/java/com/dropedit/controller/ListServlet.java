@@ -63,6 +63,7 @@ public class ListServlet extends HttpServlet {
                   return -1;
                } */
                 return fileDescriptor.getName().compareToIgnoreCase(fileDescriptor1.getName());
+
             }
         });
 
@@ -93,7 +94,6 @@ public class ListServlet extends HttpServlet {
         session.setAttribute("page", "list");
 
     }
-
 
     // path is relative to location of root (in this case, root == "dropbox")
     // path may be the location of a file or a folder
