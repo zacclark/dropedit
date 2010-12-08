@@ -46,7 +46,7 @@ public class EditFileServlet extends HttpServlet{
             try{
                 response = dropbox.getFile("dropbox", "/first.txt");
                 entity = response.getEntity();
-                //entity.consumeContent();
+                
                 instream = entity.getContent();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(instream));
                 String line;
@@ -59,23 +59,38 @@ public class EditFileServlet extends HttpServlet{
             {
                  System.out.println("HTTP Response failed");
             }
-            /*try{
-
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(instream));
-
-                fileContents = instream.toString();
-                System.out.println(instream.toString());
-            }   */
             finally{
                 if(instream != null) instream.close();
             }
+           
             //**************************************************************
 
             req.setAttribute("textBox", fileContents.toString());
 
 			req.getRequestDispatcher(VIEW).forward(req, resp);
     /*************************************************************************/
+    }
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+       File file = new File("/first.txt");
+       RandomAccessFile fil = new RandomAccessFile(file, "rw");
+
+       fil.writeChars(req.getParameter("editbox"));
+
+       HttpSession session = req.getSession();
+       DropboxClient dropbox = (DropboxClient)session.getAttribute("client");
+      
+       try{
+        HttpResponse response = dropbox.putFile("dropbox", "", file);
+       }
+       catch(com.dropbox.client.DropboxException e)
+       {
+           System.out.println("HTTP Response failed");
+       }
+
+       req.getRequestDispatcher(VIEW).forward(req, resp);
+
     }
 
 }

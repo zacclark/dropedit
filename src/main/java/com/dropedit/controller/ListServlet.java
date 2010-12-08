@@ -25,7 +25,7 @@ public class ListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        System.out.println("Entering doGet....");
         HttpSession session = req.getSession(false);
         String currentPathName = req.getParameter("value");
         if (currentPathName == null) {
