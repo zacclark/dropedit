@@ -39,7 +39,8 @@ public class ListServlet extends HttpServlet {
 				req.setAttribute("user", session.getAttribute("uname"));
             
 				String info = null;
-	            JSONObject testMap = new JSONObject();
+	      JSONObject testMap = new JSONObject();
+	
 				try {
 					info = dropbox.accountInfo(false,"").toString();
 	        testMap = (JSONObject)dropbox.metadata("dropbox", pathName, 10000, "", true, false, "");
