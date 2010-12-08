@@ -26,31 +26,22 @@ public class AuthServlet extends HttpServlet {
 
 		@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		String username = req.getParameter("username");
-		String password = req.getParameter("password");
+			String username = req.getParameter("username");
+			String password = req.getParameter("password");
 
-		Map config = null;
-		Authenticator auth = null;
-		try {
-			config = Authenticator.loadConfig("config/keys.json");
-			auth = new Authenticator(config);
-//			String url = auth.retrieveRequestToken(null);
-//			resp.getWriter().write(url);
-//
-//			auth.retrieveAccessToken("");
+			Map config = null;
+			Authenticator auth = null;
+			try {
+				config = Authenticator.loadConfig("config/keys.json");
+				auth = new Authenticator(config);
+			} catch (Exception e) {
+				e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+			}
 
-//			String access_key = auth.getTokenKey();
-//			String access_secret = auth.getTokenSecret();
+			DropboxClient dropbox = new DropboxClient(config, auth);
 
-		} catch (Exception e) {
-			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-		}
-
-		DropboxClient dropbox = new DropboxClient(config, auth);
-
-		HttpSession session = req.getSession(true);
-		session.setAttribute("client", dropbox);
-		resp.sendRedirect("/");
-
+			HttpSession session = req.getSession(true);
+			session.setAttribute("client", dropbox);
+			resp.sendRedirect("/");
     }
 }
