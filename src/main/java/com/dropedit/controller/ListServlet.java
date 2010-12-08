@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.io.IOException;
+
 import org.apache.commons.lang.StringUtils;
 import com.dropedit.model.*;
 
@@ -89,5 +91,27 @@ public class ListServlet extends HttpServlet {
 			}
     }
 
+    // path is relative to location of root (in this case, root == "dropbox")
+    // path may be the location of a file or a folder
+    protected int deleteFile(String path, DropboxClient dropbox) {
+        try {
+            //root is dropbox - alternative is sandbox
+            JSONObject testMap = (JSONObject) dropbox.fileDelete("dropbox", path, null);
+            if (testMap.containsValue("400")) {
+                return 400;
+            } else if (testMap.containsValue("200")) {
+                return 200;
+            } else if (testMap.containsValue("404")) {
+                return 404;
+            }
+            //NEED TO ADD CODE FOR RETURN VALUES
+
+            return 1;
+        }
+        catch (DropboxException e) {
+            System.out.println("Error deleting file " + path);
+            return 0;
+        }
+    }
 }
 

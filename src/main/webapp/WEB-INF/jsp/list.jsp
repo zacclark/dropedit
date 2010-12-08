@@ -8,6 +8,7 @@
 		<h2>File Listing: Dropbox<c:out value="${current_folder}"/></h2>
 		
 		<ul id="file_list">
+<<<<<<< HEAD:src/main/webapp/WEB-INF/jsp/list.jsp
 			<li class="folder"><a href="list?value=" class="direct">Back to Root</a></li>
 			
 			<c:forEach var="file" items="${files}">
@@ -37,10 +38,24 @@
             </c:otherwise>
           </c:choose>
           
+=======
+			<li class="folder"><a href="list?value=${parentPath}" class="direct">"${parentPath}" Up One Level</a></li>
+			
+			<c:forEach var="file" items="${files}">
+				<li class="file">
+                    <a href ="list?value=${file.path}" class="direct">
+					<c:out value="${file.name}"/>
+                    </a><br />
+                    <strong><c:out value="${file.modifiedDate}"/></strong>
+					<div class="buttonset">
+					<a href="edit">Edit</a>
+					<a href="#">Delete</a>
+				</div>
+>>>>>>> feature/fileList:src/main/webapp/WEB-INF/jsp/list.jsp
 				</li>
 			</c:forEach>
 			
-		</ul>
+		</ul
 
     </jsp:attribute>
 </layout:default>
