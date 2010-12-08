@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="layout" tagdir="/WEB-INF/tags/layout" %>
 		
 <layout:default title="Your Files">
@@ -11,14 +12,24 @@
 			
 			<c:forEach var="file" items="${files}">
 				<li class="file">
-                    <a href ="list?value=${file.path}" class="direct">
-					<c:out value="${file.name}"/>
-                    </a><br />
-                    <strong><c:out value="${file.modifiedDate}"/></strong>
+				  
+				  <c:choose>
+  				  <c:when test="${file.isDirectory}">
+              <a href="list?value=${file.path}" class="direct">
+    					  <c:out value="${file.name}"/>
+              </a>
+            </c:when>
+            <c:otherwise>
+              <c:out value="${file.name}"/>
+            </c:otherwise>
+          </c:choose>
+          
+          <br />
+          <strong><c:out value="${file.modifiedDate}"/></strong>
 					<div class="buttonset">
-					<a href="#">Edit</a>
-					<a href="#">Delete</a>
-				</div>
+					  <a href="#">Edit</a>
+					  <a href="#">Delete</a>
+				  </div>
 				</li>
 			</c:forEach>
 			

@@ -76,6 +76,7 @@ public class ListServlet extends HttpServlet {
 	        fileDescriptor.setName(StringUtils.difference(pathName, (String) jsObject.get("path")));
 	        fileDescriptor.setPath((String) jsObject.get("path"));
 	        fileDescriptor.setModifiedDate((String) jsObject.get("modified"));
+					fileDescriptor.setIsDirectory(((String) jsObject.get("path")).indexOf(".") == -1); // if there is a "." in the filename we'll assume its not a directory
 	        //fileDescriptor.setIsDirectory(jsObject.get("is_dir"));
           
 	        fileDescriptors.add(fileDescriptor);
