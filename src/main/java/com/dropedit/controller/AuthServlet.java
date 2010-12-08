@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import com.dropbox.client.*;
+import com.dropedit.model.RootPath;
 import oauth.signpost.exception.*;
 import org.json.simple.parser.ParseException;
 
@@ -20,37 +21,32 @@ public class AuthServlet extends HttpServlet {
 
 
     @Override
-		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-			req.getRequestDispatcher(VIEW).forward(req, resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher(VIEW).forward(req, resp);
     }
 
-		@Override
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		String username = req.getParameter("username");
-		String password = req.getParameter("password");
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
 
-		Map config = null;
-		Authenticator auth = null;
-		try {
-			config = Authenticator.loadConfig("config/keys.json");
-			auth = new Authenticator(config);
-//			String url = auth.retrieveRequestToken(null);
-//			resp.getWriter().write(url);
-//
-//			auth.retrieveAccessToken("");
+        Map config = null;
+        Authenticator auth = null;
+        try {
+            config = Authenticator.loadConfig("config/keys.json");
+            auth = new Authenticator(config);
+        } catch (Exception e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
 
-//			String access_key = auth.getTokenKey();
-//			String access_secret = auth.getTokenSecret();
+        DropboxClient dropbox = new DropboxClient(config, auth);
 
-		} catch (Exception e) {
-			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-		}
+        HttpSession session = req.getSession(true);
+        session.setAttribute("client", dropbox);
 
-		DropboxClient dropbox = new DropboxClient(config, auth);
+        RootPath rootPath = new RootPath();
+        //session.setAttribute("parentPath", rootPath);
 
-		HttpSession session = req.getSession(true);
-		session.setAttribute("client", dropbox);
-		resp.sendRedirect("/");
-
+        resp.sendRedirect("/");
     }
 }
