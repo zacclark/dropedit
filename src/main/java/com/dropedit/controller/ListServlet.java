@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.util.*;
 import java.io.IOException;
 import org.apache.commons.lang.StringUtils;
+import com.dropedit.model.*;
 
 
 public class ListServlet extends HttpServlet {
@@ -76,7 +77,7 @@ public class ListServlet extends HttpServlet {
 	        fileDescriptor.setName(StringUtils.difference(pathName, (String) jsObject.get("path")));
 	        fileDescriptor.setPath((String) jsObject.get("path"));
 	        fileDescriptor.setModifiedDate((String) jsObject.get("modified"));
-					fileDescriptor.setIsDirectory(((String) jsObject.get("path")).indexOf(".") == -1); // if there is a "." in the filename we'll assume its not a directory
+					//fileDescriptor.setIsDirectory(((String) jsObject.get("path")).indexOf(".") == -1); // if there is a "." in the filename we'll assume its not a directory
 	        //fileDescriptor.setIsDirectory(jsObject.get("is_dir"));
           
 	        fileDescriptors.add(fileDescriptor);

@@ -1,4 +1,4 @@
-package com.dropedit.controller;
+package com.dropedit.model;
 
 public class FileDescriptor {
 	private String name;
@@ -9,42 +9,39 @@ public class FileDescriptor {
 
 
 	public String getPath(){
-	    return path;
+		return path;
 	}
 
 	public void setPath(String path) {
-	    this.path = path;
+		this.path = path;
 	}
 
 	public String getName() {
-	    return name;
+		return name;
 	}
 
 	public void setName(String name) {
-	    this.name = name.substring(1);
+		this.name = name.substring(1);
 	}
 
-	public void setIsDirectory(boolean directory){
-	    this.directory = directory;
-	}
 
 	public boolean getIsDirectory(){
-	    return directory;
+		return this.name.indexOf(".") == -1;
 	}
 
 	public String getCreationDate() {
-	    return creationDate;
+		return creationDate;
 	}
 
 	public void setCreationDate(String creationDate) {
-	    this.creationDate = creationDate;
+		this.creationDate = creationDate;
 	}
 
 	public String getModifiedDate() {
-	    return modifiedDate;
+		return modifiedDate;
 	}
 
 	public void setModifiedDate(String modifiedDate) {
-	    this.modifiedDate = modifiedDate;
+		this.modifiedDate = modifiedDate;
 	}
 }
