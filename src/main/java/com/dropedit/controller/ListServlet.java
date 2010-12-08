@@ -66,6 +66,7 @@ public class ListServlet extends HttpServlet {
 
 	      //String Source = (String) testMap.get("path");
 	      req.setAttribute("folder", root);
+				req.setAttribute("current_folder", pathName);
         
 	      for(Object o : (JSONArray) testMap.get("contents")) {
 	      	JSONObject jsObject = (JSONObject) o;
