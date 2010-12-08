@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import com.dropbox.client.*;
+import com.dropedit.model.RootPath;
 import oauth.signpost.exception.*;
 import org.json.simple.parser.ParseException;
 
@@ -20,32 +21,32 @@ public class AuthServlet extends HttpServlet {
 
 
     @Override
-        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-			req.getRequestDispatcher(VIEW).forward(req, resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher(VIEW).forward(req, resp);
     }
 
-		@Override
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-			String username = req.getParameter("username");
-			String password = req.getParameter("password");
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
 
-			Map config = null;
-			Authenticator auth = null;
-			try {
-				config = Authenticator.loadConfig("config/keys.json");
-				auth = new Authenticator(config);
-			} catch (Exception e) {
-				e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-			}
+        Map config = null;
+        Authenticator auth = null;
+        try {
+            config = Authenticator.loadConfig("config/keys.json");
+            auth = new Authenticator(config);
+        } catch (Exception e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
 
-			DropboxClient dropbox = new DropboxClient(config, auth);
+        DropboxClient dropbox = new DropboxClient(config, auth);
 
-			HttpSession session = req.getSession(true);
-			session.setAttribute("client", dropbox);
+        HttpSession session = req.getSession(true);
+        session.setAttribute("client", dropbox);
 
-			RootPath rootPath = new RootPath();
-			session.setAttribute("parentPath", rootPath);
+        RootPath rootPath = new RootPath();
+        //session.setAttribute("parentPath", rootPath);
 
-			resp.sendRedirect("/");
+        resp.sendRedirect("/");
     }
 }

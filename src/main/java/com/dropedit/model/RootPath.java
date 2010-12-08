@@ -2,7 +2,7 @@ package com.dropedit.model;
 import java.util.Stack;
 
 public class RootPath {
-    private Stack rootStack = new Stack();
+    private static Stack rootStack = new Stack();
 
     public static void addRootPath(String node){
 		if(node != null && node != "") {
@@ -10,7 +10,7 @@ public class RootPath {
 		}
     }
 
-    public String getRootPath(){
+    public static String getRootPath(){
         if (rootStack.empty()){
             return "";
         }
@@ -20,12 +20,12 @@ public class RootPath {
         }
     }
 
-    public String popRootPath(){
+    public static String popRootPath(){
         if (rootStack.empty()){
             return "";
         }
         else{
-            return rootStack.pop();
+            return (String)rootStack.pop();
         }
     }
 }

@@ -12,14 +12,18 @@
     <jsp:attribute name="content">
 
   <head><title>Edit View</title></head>
-  <body>Place your content here</body>
+  <body></body>
+  <br />
+  You are currently editing: ${fileName}
+  <br />
+
   <form method="POST" action="/edit">
     <textarea cols=80% rows="70%" name="editbox" label="editbox">${textBox}</textarea>
     <br>
     <input type="submit" value="Save"/>
-      |
-    <input type="button" value="Cancel"/>
+    <input type="hidden" name="fileName" label="fileName" value=${fileName} />
   </form>
+  <a href="list">Cancel</a>
 
     </jsp:attribute>
 </layout:default>

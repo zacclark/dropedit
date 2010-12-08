@@ -20,8 +20,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.io.IOException;
+
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -31,65 +33,76 @@ import org.apache.commons.lang.StringUtils;
  * Time: 3:18:23 PM
  * To change this template use File | Settings | File Templates.
  */
-public class EditFileServlet extends HttpServlet{
+public class EditFileServlet extends HttpServlet {
     public static final String VIEW = "/WEB-INF/jsp/edit.jsp";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-		/**********************************************************************/
-        DropboxClient dropbox = (DropboxClient)session.getAttribute("client");
+        /**********************************************************************/
+        DropboxClient dropbox = (DropboxClient) session.getAttribute("client");
         HttpResponse response;
-            HttpEntity entity;
-            InputStream instream = null;
-            StringBuilder fileContents = new StringBuilder();
-            try{
-                response = dropbox.getFile("dropbox", "/first.txt");
-                entity = response.getEntity();
-                
-                instream = entity.getContent();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(instream));
-                String line;
-                while((line = reader.readLine()) != null) {
-                    fileContents.append(line + '\n');
-                }
-                System.out.println(fileContents.toString());
-            }
-            catch(com.dropbox.client.DropboxException e)
-            {
-                 System.out.println("HTTP Response failed");
-            }
-            finally{
-                if(instream != null) instream.close();
-            }
-           
-            //**************************************************************
+        HttpEntity entity;
+        InputStream instream = null;
+        StringBuilder fileContents = new StringBuilder();
+        String fileName = req.getParameter("value");
+        System.out.println("filename in doGet: " + fileName);
 
-            req.setAttribute("textBox", fileContents.toString());
+        try {
+            response = dropbox.getFile("dropbox", fileName);
+            entity = response.getEntity();
 
-			req.getRequestDispatcher(VIEW).forward(req, resp);
-    /*************************************************************************/
+            instream = entity.getContent();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(instream));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                fileContents.append(line);
+            }
+            System.out.println(fileContents.toString());
+        }
+        catch (com.dropbox.client.DropboxException e) {
+            System.out.println("HTTP Response failed");
+        }
+        finally {
+            if (instream != null) instream.close();
+        }
+
+        //**************************************************************
+
+        req.setAttribute("textBox", fileContents.toString());
+        req.setAttribute("fileName", fileName);
+
+        req.getRequestDispatcher(VIEW).forward(req, resp);
+        /*************************************************************************/
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-       File file = new File("/first.txt");
-       RandomAccessFile fil = new RandomAccessFile(file, "rw");
+        String fileName = req.getParameter("fileName");
+        System.out.println("fileName: " + fileName);
+        String[] splitFile = fileName.split("/");
 
-       fil.writeChars(req.getParameter("editbox"));
+        File file = new File(splitFile[splitFile.length - 1]);
 
-       HttpSession session = req.getSession();
-       DropboxClient dropbox = (DropboxClient)session.getAttribute("client");
-      
-       try{
-        HttpResponse response = dropbox.putFile("dropbox", "", file);
-       }
-       catch(com.dropbox.client.DropboxException e)
-       {
-           System.out.println("HTTP Response failed");
-       }
+        RandomAccessFile fil = new RandomAccessFile(file, "rw");
+        fil.writeChars(req.getParameter("editbox"));
 
-       req.getRequestDispatcher(VIEW).forward(req, resp);
+        HttpSession session = req.getSession();
+        DropboxClient dropbox = (DropboxClient) session.getAttribute("client");
+
+        String filePath = "";
+        for (int i = 0; i < splitFile.length - 1; i++) {
+            filePath += splitFile[i];
+        }
+
+        try {
+            HttpResponse response = dropbox.putFile("dropbox", filePath, file);
+        }
+        catch (com.dropbox.client.DropboxException e) {
+            System.out.println("HTTP Response failed");
+        }
+
+        resp.sendRedirect("/list");
 
     }
 
