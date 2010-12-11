@@ -5,10 +5,10 @@
 <layout:default title="Your Files">
     <jsp:attribute name="content">
         
-		<h2>File Listing: Dropbox<c:out value="${current_folder}"/></h2>
+		<h2>File Listing: Dropbox${currentPath}<c:out value="${current_folder}"/></h2>
 		
 		<ul id="file_list">
-			<li class="folder"><a href="list?value=" class="direct">Back to Root</a></li>
+			<li class="folder"><a href="list?value=${parentPath}" class="direct">Previous Directory: ${parentPath}</a></li>
 			
 			<c:forEach var="file" items="${files}">
 				<li class="file">
