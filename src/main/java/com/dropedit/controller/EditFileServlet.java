@@ -44,7 +44,7 @@ public class EditFileServlet extends HttpServlet {
         HttpResponse response;
         HttpEntity entity;
         InputStream instream = null;
-        StringBuilder fileContents = new StringBuilder();
+        StringBuffer fileContents = new StringBuffer();
         String fileName = req.getParameter("value");
         System.out.println("filename in doGet: " + fileName);
 
@@ -64,7 +64,7 @@ public class EditFileServlet extends HttpServlet {
             System.out.println("HTTP Response failed");
         }
         finally {
-            if (instream != null) instream.close();
+            if (instream == null) instream.close();  ////////////////
         }
 
         //**************************************************************
@@ -85,14 +85,21 @@ public class EditFileServlet extends HttpServlet {
         File file = new File(splitFile[splitFile.length - 1]);
 
         RandomAccessFile fil = new RandomAccessFile(file, "rw");
-        fil.writeChars(req.getParameter("editbox"));
+        fil.writeBytes(req.getParameter("editbox"));
+        fil.close();               /////////////////////
 
         HttpSession session = req.getSession();
         DropboxClient dropbox = (DropboxClient) session.getAttribute("client");
 
-        String filePath = "";
+        String filePath = "";      //////////////
         for (int i = 0; i < splitFile.length - 1; i++) {
-            filePath += splitFile[i];
+            filePath += splitFile[i] +"/";        ////////////
+        }
+
+        int length = filePath.length();           /////////////
+
+        if(length > 0){                            ///////////
+            length = length - 1;                   ///////////
         }
 
         try {
