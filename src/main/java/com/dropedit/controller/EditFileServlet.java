@@ -56,7 +56,7 @@ public class EditFileServlet extends HttpServlet {
             BufferedReader reader = new BufferedReader(new InputStreamReader(instream));
             String line;
             while ((line = reader.readLine()) != null) {
-                fileContents.append(line);
+                fileContents.append(line + "\n");
             }
             System.out.println(fileContents.toString());
         }
@@ -103,7 +103,8 @@ public class EditFileServlet extends HttpServlet {
         }
 
         try {
-            HttpResponse response = dropbox.putFile("dropbox", filePath, file);
+            HttpResponse response = dropbox.putFile("dropbox", filePath.substring(0,length), file);
+            file.delete();
         }
         catch (com.dropbox.client.DropboxException e) {
             System.out.println("HTTP Response failed");
