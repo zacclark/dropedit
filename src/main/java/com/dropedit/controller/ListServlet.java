@@ -26,15 +26,28 @@ public class ListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String root = RootPath.getRootPath();
+        //String root = RootPath.getRootPath();
         String pathName = req.getParameter("value");
-
 
         if (pathName == null) {
             pathName = "";
         }
+        //////////////////////////////////////////
+        String[] currentDir = pathName.split("/");
+        String parent = "";
 
-        RootPath.addRootPath(pathName);
+        for(int i = 0; i < currentDir.length -1; i++){
+            parent += currentDir[i] + "/";
+        }
+
+        int length = parent.length();
+
+        if(length > 0){
+            length = length - 1;
+        }
+        /////////////////////////////////////////////
+
+        //RootPath.addRootPath(pathName);
 
         HttpSession session = req.getSession(false);
 
@@ -49,22 +62,23 @@ public class ListServlet extends HttpServlet {
             JSONObject testMap = new JSONObject();
 
             try {
-                info = dropbox.accountInfo(false, "").toString();
+                //info = dropbox.accountInfo(false, "").toString();
                 testMap = (JSONObject) dropbox.metadata("dropbox", pathName, 10000, "", true, false, "");
             } catch (DropboxException e) {
-                info = "oh shit it failed!";
+                info = "oh shoot it failed!";
+                System.out.println(info);
             }
 
             Set<FileDescriptor> fileDescriptors = new TreeSet<FileDescriptor>(
                     new Comparator<FileDescriptor>() {
                         @Override
                         public int compare(FileDescriptor fileDescriptor, FileDescriptor fileDescriptor1) {
-                            /*if(fileDescriptor.getIsDirectory() && !fileDescriptor1.getIsDirectory()){
-                             return 1;
+                            if(fileDescriptor.getIsDirectory() && !fileDescriptor1.getIsDirectory()){
+                             return -1;
                          }
                          else if(!fileDescriptor.getIsDirectory() && fileDescriptor1.getIsDirectory()){
-                            return -1;
-                         } */
+                            return 1;
+                         }
                             return fileDescriptor.getName().compareToIgnoreCase(fileDescriptor1.getName());
                         }
                     }
@@ -90,7 +104,9 @@ public class ListServlet extends HttpServlet {
                 fileDescriptors.add(fileDescriptor);
             }
 
-            req.setAttribute("parentPath", root);
+            req.setAttribute("parentPath", parent.substring(0,length));
+            req.setAttribute("currentPath",pathName);
+            //req.setAttribute("root", root);
             req.setAttribute("files", fileDescriptors);
             req.getRequestDispatcher(VIEW).forward(req, resp);
         }
